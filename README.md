@@ -1,21 +1,42 @@
-# houtai
+# 登录
 
-> A Vue.js project
+## OK
 
-## Build Setup
+# 角色管理
 
-``` bash
-# install dependencies
-npm install
+## OK
 
-# serve with hot reload at localhost:8080
-npm run dev
+# 管理员管理
 
-# build for production with minification
-npm run build
+## OK
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+# 菜单管理
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+##  OK
+
+# 商品分类
+
+## OK
+
+# 商品规格
+
+## 即将ok
+
+# 商品管理
+
+## no
+
+# 会员管理
+
+## no
+
+# 秒杀活动
+
+## no
+
+# 轮播图管理
+
+## no
+
+
+
