@@ -1,6 +1,6 @@
 <template>
   <div>
-      <el-dialog :title="info.title" :visible.sync="info.isshow">
+      <el-dialog :title="info.title" :visible.sync="info.isshow" @closed="closed">
       <el-form :model="user">
         <el-form-item label="规格名称" label-width="120px">
           <el-input v-model="user.specsname" autocomplete="off"></el-input>
@@ -19,7 +19,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" v-if="info.title=='添加规格'" @click="add">添 加</el-button>
-        <el-button type="primary" v-else >修 改</el-button>
+        <el-button type="primary" v-else @click="update ">修 改</el-button>
       </div>
     </el-dialog>
   </div>
@@ -56,6 +56,11 @@ export default {
        reqList:"specs/reqList",
        reqCount:"specs/reqCount",
     }),
+    closed(){
+        if(this.info.title=="编辑规格"){
+            this.empty()
+        }
+    },
     cancel(){
       this.info.isshow = false
     },
@@ -90,7 +95,25 @@ export default {
         }
        
       })
-    }
+    },
+      getOne(id){
+        reqspecsDetail(id).then(res=>{
+            this.user=res.data.list[0]
+            //  '["s","M"]'-->[{value:"s"},{value:"M"}]
+            this.attrArr=JSON.parse(this.user.attrs).map(item=>({value:item}))
+        })
+    },
+     update(){
+        this.user.attrs=JSON.stringify(this.attrArr.map(item=>item.value))
+        reqspecsUpdate(this.user).then(res=>{
+            if(res.data.code==200){
+                successAlert("更新成功")
+                this.cancel()
+                this.empty()
+                this.reqList()
+            }
+        })
+    },
 
   },
 

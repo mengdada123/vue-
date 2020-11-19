@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 import actions from './actions'
 import cate from './modules/cate' 
+import goods from "./modules/goods"
 
 import {state,mutations,getters} from './mutations'
 import specs from './modules/specs'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     modules:{
         cate,
         specs,
+        goods
     }
 
 })

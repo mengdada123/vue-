@@ -2,7 +2,7 @@
   <div>
       <el-button type="primary" @click="willAdd">添加</el-button>
 
-      <v-list></v-list>
+      <v-list  @edit="edit"></v-list>
 
       <v-form ref="form" :info="info"></v-form>
 
@@ -36,6 +36,13 @@ export default {
         isshow:true,
         title:'添加规格'
       }
+    },
+     edit(id){
+      this.info={
+        isshow:true,
+        title:"编辑规格"
+      }
+      this.$refs.form.getOne(id)
     }
   }
 

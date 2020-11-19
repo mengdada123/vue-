@@ -1,16 +1,18 @@
-import {reqspecsList,reqspecsCount} from '../../utils/http'
-
-const state ={
+import {reqgoodsList,reqgoodsCount} from "../../utils/http"
+const state = {
+    //分类list
     list:[],
+    //总数
     total:0,
     size:2,
-    page:1
-
+    page:1,
 }
 
 const mutations = {
+    //修改list
     changeList(state,arr){
         state.list=arr;
+        console.log(state.list);
     },
     changeTotal(state,num){
         state.total=num;
@@ -18,16 +20,13 @@ const mutations = {
     changePage(state,page){
         state.page=page;
     }
-
 }
 
 const actions = {
     //发起请求
-    reqList(context,bool){
-        // 10.修改条件
-        let params=bool?{}:{page:context.state.page,size:context.state.size}
+    reqList(context){
         //发请求，成功之后，修改list
-        reqspecsList(params).then(res=>{
+        reqgoodsList({page:context.state.page,size:context.state.size}).then(res=>{
             let list=res.data.list?res.data.list:[]
             
             if(list.length==0&&context.state.page>1){
@@ -35,18 +34,13 @@ const actions = {
                 context.dispatch("reqList");
                 return;
             }
-
-
-            //attrs JSON.parse()
-            list.forEach(item=>{
-                item.attrs=JSON.parse(item.attrs)
-            })
+            
             context.commit("changeList",list)
         })
     },
     //请总数
     reqCount(context){
-        reqspecsCount().then(res=>{
+        reqgoodsCount().then(res=>{
             context.commit("changeTotal",res.data.list[0].total)
         })
     },
@@ -59,7 +53,7 @@ const actions = {
     }
 }
 
-const getters ={
+const getters = {
     list(state){
         return state.list
     },
@@ -73,11 +67,6 @@ const getters ={
 }
 
 export default {
-    state,
-    mutations,
-    actions,
-    getters,
-    namespaced:true
-
-
+    state, mutations, getters, actions,
+    namespaced: true
 }

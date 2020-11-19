@@ -4,6 +4,7 @@ import axios from 'axios'
 
 let baseUrl = '/aa'
 import Vue from 'vue'
+import { FormItem } from 'element-ui'
 Vue.prototype.$imgPre="http://localhost:3000"
 
 
@@ -279,6 +280,70 @@ export const reqspecsCount = () => {
    
     return axios({
         url: baseUrl + "/api/specscount",
+        method: "get",
+    })
+}
+// ======商品管理 =====
+// 8.添加 文件
+export const reqgoodsAdd = (user) => {
+    let d = new FormData()
+    for(let i in user){
+        d.append(i,user[i])
+    }
+    return axios({
+        url: baseUrl + "/api/goodsadd",
+        method: "post",
+        data:d
+    })
+}
+
+//18.列表 p={page:1,size:10}
+export const reqgoodsList = (p) => {
+    return axios({
+        url: baseUrl + "/api/goodslist",
+        method: "get",
+        params: p
+    })
+}
+
+//26.删除
+export const reqgoodsDel = (id) => {
+    return axios({
+        url: baseUrl + "/api/goodsdelete",
+        method: "post",
+        data: qs.stringify({
+            id: id
+        })
+    })
+}
+
+// 33.详情
+export const reqgoodsDetail = id => {
+    return axios({
+        url: baseUrl + "/api/goodsinfo",
+        method: "get",
+        params: {
+            id: id
+        }
+    })
+}
+
+
+
+// 38.修改 文件
+export const reqgoodsUpdate = (user) => {
+   
+    return axios({
+        url: baseUrl + "/api/goodsedit",
+        method: "post",
+        data: qs.stringify(user)
+    })
+}
+
+export const reqgoodsCount = () => {
+   
+    return axios({
+        url: baseUrl + "/api/goodscount",
         method: "get",
     })
 }
